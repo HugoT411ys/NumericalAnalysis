@@ -16,14 +16,16 @@ def lagrange(x, y, z):
 
 
 if __name__ == '__main__':
-    x = numpy.array([1., -1., 4., 5.])
-    y = numpy.array([3, -3., 12., -2.])
+    x = numpy.array([9, 46, -12, -18, -7, -14, 38, -28 , 40, -37, 29])
+    y = numpy.array([-22, -41, 6, 25, -41, 45, -46, 50, 33, -6, 36])
 
-    _x = numpy.linspace(-6., 10., 100)
+    _x = numpy.linspace(-100, 100, 1000)
 
     _y = [lagrange(x, y, z) for z in _x]
+
+    Y = 500
+    pyplot.ylim((-Y, Y))
 
     pyplot.plot(x, y, 'bo')
     pyplot.plot(_x, _y, 'r--')
     pyplot.show()
-    pyplot.savefig('lagrange.png')
