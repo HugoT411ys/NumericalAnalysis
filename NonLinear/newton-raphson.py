@@ -14,8 +14,8 @@ def newton(f, df, x0, D2d):
 
 
 if __name__ == '__main__':
-    f = lambda x: numpy.cos(x) - x**2
-    df = lambda x: - numpy.sin(x) - 2*x
+    f = lambda x: x - numpy.log(15 - numpy.log(x))
+    df = lambda x: 1 + 1 / (x * (15 - numpy.log(x)))
 
     r = newton(f, df, 1, 9/(3*(numpy.sqrt(3)-1)+numpy.pi))
     print('r = ' + str(r) + ' f(r) = ' + str(f(r)))
