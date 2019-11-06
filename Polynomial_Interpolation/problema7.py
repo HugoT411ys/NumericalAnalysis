@@ -3,21 +3,26 @@ import numpy
 from matplotlib import pyplot
 
 
+def F(x):
+    if len(x) == 1:
+        return x[0][1]
+    else:
+        return (F(x[1:]) - F(x[:-1])) / (x[len(x)-1][0] - x[0][0])
+
+
 class NewtonPolynomial:
     def __init__(self, p):
         self.c = [0]
         self.p = p
         self.n = 0
 
-    def diff(self, x):
-        if len(x) == 1:
-            return x[0][1]
-        else:
-            return (self.diff(x[1:]) - self.diff(x[:-1])) / (x[len(x)-1][0] - x[0][0])
-
     def init(self):
         for _ in range(len(self.p)):
-            self.c[self.n] = self.diff(self.p[0:self.n+1])
+            x = self.p[0:self.n + 1]
+            if self.n == 0:
+                self.c[self.n] = F(x)
+            else:
+                self.c[self.n] = (F(x[1:]) - self.c[self.n - 1]) / (x[len(x) - 1][0] - x[0][0])
             self.n = self.n + 1
             self.c.append(0)
         self.c.pop()
@@ -26,7 +31,9 @@ class NewtonPolynomial:
         self.c.append(0)
         self.p.append(point)
 
-        self.c[self.n] = self.diff(self.p[0:self.n+1])
+        x = self.p[0:self.n + 1]
+
+        self.c[self.n] = (F(x[1:]) - self.c[self.n - 1]) / (x[len(x)-1][0] - x[0][0])
         self.n = self.n + 1
 
     def evaluate(self, x):
@@ -47,7 +54,7 @@ if __name__ == '__main__':
 
     X = numpy.linspace(-10, 10., 100)
 
-    points = [(1, 3), (2, -1), (0, 5)]
+    points = [(1, 3), (5, 5)]
 
     np = NewtonPolynomial(p=points)
 
@@ -59,12 +66,14 @@ if __name__ == '__main__':
     axs[0].plot(X, Y, 'r-')
     axs[0].scatter([p[0] for p in points], [p[1] for p in points], c='blue')
 
-    np.update((4,2))
+    np.update((4, 10))
     Y = [np.evaluate(x_i) for x_i in X]
     axs[1].plot(X, Y, 'r-')
     axs[1].scatter([p[0] for p in points], [p[1] for p in points], c='blue')
 
-    np.update((7, -12))
+    print(np.c)
+
+    np.update((-8, -12))
     Y = [np.evaluate(x_i) for x_i in X]
     axs[2].plot(X, Y, 'r-')
     axs[2].scatter([p[0] for p in points], [p[1] for p in points], c='blue')
