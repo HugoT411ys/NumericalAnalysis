@@ -1,6 +1,6 @@
-from matplotlib import pyplot
-
 import numpy
+
+from matplotlib import pyplot
 
 
 def lagrange(x, y, z):
@@ -26,6 +26,6 @@ if __name__ == '__main__':
     Y = 500
     pyplot.ylim((-Y, Y))
 
-    pyplot.plot(x, y, 'bo')
-    pyplot.plot(_x, _y, 'r--')
+    pyplot.scatter(x, y, c='green')
+    pyplot.plot(_x, _y, 'red')
     pyplot.show()
