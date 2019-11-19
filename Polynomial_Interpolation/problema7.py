@@ -54,7 +54,11 @@ if __name__ == '__main__':
 
     X = numpy.linspace(-10, 10., 100)
 
-    points = [(1, 3), (5, 5)]
+    p = lambda x: 9*x**3 + 3*x**2 - 12*x - 12
+
+    l2_zero = 1 / numpy.sqrt(3)
+
+    points = [(l2_zero, p(l2_zero)), (-l2_zero, p(-l2_zero))]
 
     np = NewtonPolynomial(p=points)
 
